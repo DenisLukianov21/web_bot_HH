@@ -5,11 +5,10 @@ def getVacancie(page=0):
     '''Получаем вакансии с API'''
     params = {
         'text': 'NAME:Python',
-        'area': 1,
+        'area': 66,
         'page': page,
         'per_page': 1
     }
-    
     request = requests.get('https://api.hh.ru/vacancies', params)
     print(request)
     data = request.content.decode()
@@ -21,9 +20,9 @@ def parse():
     '''Записываем вакансии в файл'''
     data = getVacancie()
     fileName = 'data/vacancies.json'
-    f = open(fileName, mode='w', encoding='utf8')
-    f.write(data)
-    f.close()
+    with open(fileName, mode='w', encoding='utf8') as f:
+        f.write(data)
+        f.close()
 
 
 def printVacancie():
@@ -38,3 +37,5 @@ def printVacancie():
         url = data['items'][0]['alternate_url']
         exData = (name, city, salary, url)
         return exData
+
+parse()
