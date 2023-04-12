@@ -1,6 +1,7 @@
 import requests
 import json
 
+
 def getVacancie(page=0):
     '''Получаем вакансии с API'''
     params = {
@@ -25,6 +26,10 @@ def parse():
         f.close()
 
 
+def checkVacancie():
+    pass
+
+
 def printVacancie():
     '''Читаем файл и возвращаем нужные данные'''
     with open('data/vacancies.json') as f:
@@ -32,10 +37,11 @@ def printVacancie():
         name = data['items'][0]['name']
         city = data['items'][0]['area']['name']
         salary_from = data['items'][0]['salary']['from']
-        salary_to = data['items'][0]['salary']['to'] 
+        salary_to = data['items'][0]['salary']['to']
         salary = f' от {salary_from} до {salary_to}'
         url = data['items'][0]['alternate_url']
         exData = (name, city, salary, url)
         return exData
+
 
 parse()
